@@ -1,12 +1,11 @@
-#ifndef VECTOR
-#define VECTOR
+#ifndef __VECTOR__
+#define __VECTOR__
 
 #define SQR(x)((x)*(x))
 #define CUBE(x)((x)*(x)*(x))
 #define QUAD(x)((x)*(x)*(x)*(x))
 
-#include <cmath>
-#include <memory>
+#include <math.h>
 
 template <class T=float, int N=3>
 class CVector

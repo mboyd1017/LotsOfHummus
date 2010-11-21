@@ -9,7 +9,6 @@
 #  define FREEGLUT_STATIC
 #  include <GL/glut.h>
 #endif
-
 GLuint compileShaders(const char * vertexShaderFileName, const char * fragmentShaderFileName );
 
 #endif

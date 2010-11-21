@@ -1,32 +1,29 @@
-#version 120
-
 uniform vec4 fvAmbient;
 uniform vec4 fvSpecular;
 uniform vec4 fvDiffuse;
 uniform float fSpecularPower;
 uniform vec4 fvBaseColor;
 
-varying vec3 fvVaryingViewDir;
-varying vec3 fvVaryingLightDir;
-varying vec3 fvVaryingNormal;
+varying vec3 ViewDirection;
+varying vec3 LightDirection;
+varying vec3 Normal;
+varying vec4 Color;
 
 void main( void )
 {
-	// compute dot product between light direction and normal
-	vec3  fvLightDir = normalize( fvVaryingLightDir );
-	vec3  fvNormal   = normalize( fvVaryingNormal );
-	float fNDotL     = max(0.0, dot( fvNormal, fvLightDir )); 
+   vec3  fvLightDirection = normalize( LightDirection );
+   vec3  fvNormal         = normalize( Normal );
+   float fNDotL           = max(0.0, dot( fvNormal, fvLightDirection )); 
    
-	// compute dot product between reflection direction and view direction
-	vec3  fvReflec   = normalize( ( ( 2.0 * fNDotL ) * fvNormal ) - fvLightDir ); 
-	vec3  fvViewDir  = normalize( fvVaryingViewDir );
-	float fRDotV     = max( 0.0, dot( fvReflec, fvViewDir ) );
+   vec3  fvReflection     = normalize( ( ( 2.0 * fNDotL ) * fvNormal ) - fvLightDirection ); 
+   vec3  fvViewDirection  = normalize( ViewDirection );
+   float fRDotV           = max( 0.0, dot( fvReflection, fvViewDirection ) );
    
-    // compute ambient, diffuse and specular colors
-	vec4  fvTotalAmbient   = fvAmbient * fvBaseColor; 
-	vec4  fvTotalDiffuse   = fvDiffuse * fNDotL * fvBaseColor; 
-	vec4  fvTotalSpecular  = fvSpecular * ( pow( fRDotV, fSpecularPower ) );
+   vec4  fvTotalAmbient   = fvAmbient * fvBaseColor; 
 
-	// compute final fragment color
-	gl_FragColor = fvTotalAmbient + fvTotalDiffuse + fvTotalSpecular;
-}
+   vec4  fvTotalDiffuse   = fvDiffuse * fNDotL * fvBaseColor; 
+ 
+   vec4  fvTotalSpecular  = fvSpecular * ( pow( fRDotV, fSpecularPower ) );
+  
+   gl_FragColor = ( fvTotalAmbient + fvTotalDiffuse + fvTotalSpecular );
+ }

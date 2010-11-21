@@ -62,7 +62,7 @@ GLuint compileShaders(const char * vertexShaderFileName, const char * fragmentSh
 	GLuint vertexShaderHandle = glCreateShader( GL_VERTEX_SHADER );
 	GLuint fragmentShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
 
-	// set the source code for the shaders
+	// set the source code fo the shaders
 	const char * constVertexShaderString = vertexShaderString.c_str();
 	const char * constFragmentShaderString = fragmentShaderString.c_str();
 	glShaderSource( vertexShaderHandle, 1, &constVertexShaderString, NULL );
@@ -99,7 +99,7 @@ GLuint compileShaders(const char * vertexShaderFileName, const char * fragmentSh
 
 	// load and use this program
 	glUseProgram( programHandle );
-	//printInfoLog(programHandle, "");
+	printInfoLog(programHandle, "");
 
 	return programHandle;
 }
